@@ -1,2 +1,8 @@
 # dependecies
 *.exe
+*.py
+*.rb
+*.kt
+*.js
+*.java
+*.hs
