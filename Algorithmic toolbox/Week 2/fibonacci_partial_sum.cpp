@@ -1,29 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
+long pisano(long m)
+{
+    long prev = 0;
+    long curr = 1;
+    long res = 0;
 
-int main(){
-    long long n,m;
-    cin>>n>>m;
-    long long first = 0;
-    long long second =1;
-    long long sum = 1;
-    long long temp;
+    for (int i = 0; i < m * m; i++)
+    {
+        long temp = 0;
+        temp = curr;
+        curr = (prev + curr) % m;
+        prev = temp;
+
+        if (prev == 0 && curr == 1)
+            res = i + 1;
+    }
+    return res;
+}
+
+long long getFibonaccisum(long long n)
+{
+    if (n < 1)
+        return n;
+    int fib[n + 1];
+    fib[0] = 0;
+    fib[1] = 1;
+    long long sum=1;
     for(int i=2;i<=n;i++){
-        temp = (first + second)%10;
-        sum = sum+temp;
-        first = second;
-        second = temp;
+        fib[i] = (fib[i-1] + fib[i-2])%10;
+        sum +=fib[i];
     }
-     first = 0;
-     second =1;
-    long long sum2 = 1;
-    long long temp2;
-    for(int i=2;i<=m;i++){
-        temp2 = (first + second)%10;
-        sum2 = sum+temp2;
-        first = second;
-        second = temp2;
-    }
-    cout<<(sum2-sum)%10;
+    return sum;
+}
+
+int main()
+{
+    long long n,m;
+    cin >> n>>m;
+    long long k = n % 60;
+    long long l = m % 60;
+    long long res =getFibonaccisum(l)-getFibonaccisum(k);
+    cout<<res%10;
     return 0;
 }
