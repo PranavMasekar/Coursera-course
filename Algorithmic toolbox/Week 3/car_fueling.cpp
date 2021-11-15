@@ -1,30 +1,31 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
+#include<vector>
 
-using std::cin;
-using std::cout;
-using std::vector;
-using std::max;
-
-int compute_min_refills(int dist, int tank, vector<int> & stops) {
-    // write your code here
-    return -1;
-}
-
+using namespace std;
 
 int main() {
-    int d = 0;
-    cin >> d;
-    int m = 0;
-    cin >> m;
-    int n = 0;
-    cin >> n;
-
-    vector<int> stops(n);
-    for (size_t i = 0; i < n; ++i)
-        cin >> stops.at(i);
-
-    cout << compute_min_refills(d, m, stops) << "\n";
-
-    return 0;
+    int d,m,n; cin>>d>>m>>n;
+    vector<int> arr(n,0);
+    for(int i=0;i<n;i++) {
+        cin>>arr[i];
+    }
+    int ans=0;
+    int nxt=m;
+    for(int i=0;i<n;i++) {
+        if(arr[i]>nxt)  {
+            if(i==0 || (arr[i]-arr[i-1])>m) {
+                ans=-1; break;
+            }
+            else {
+                nxt=arr[i-1]+m;
+                i--; ans++;
+            }
+        }
+     }
+     if(nxt<d && ans!=-1) {
+         nxt=arr[n-1]+m;
+         if(nxt<d) ans=-1;
+         else ans++;
+     }
+     cout<<ans;
 }

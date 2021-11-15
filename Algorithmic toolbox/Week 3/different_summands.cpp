@@ -1,11 +1,23 @@
 #include <iostream>
 #include <vector>
+#include<cmath>
 
 using std::vector;
 
 vector<int> optimal_summands(int n) {
   vector<int> summands;
-  //write your code here
+  int add=1;
+  while(n>0){
+    if(n<add){
+      summands[summands.size()-1] += n;
+      break;
+    }
+    else{
+      summands.push_back(add);
+      n -= add;
+    }
+    add++;
+  }
   return summands;
 }
 
