@@ -27,7 +27,7 @@ int main() {
     std::cin >> starts[i] >> ends[i];
   }
   vector<int> points(m);
-  for (size_t i = 0; i < points.size(); i++) {
+  for (size_t i = 0; i < points.size(); i++) { 
     std::cin >> points[i];
   }
   //use fast_count_segments
