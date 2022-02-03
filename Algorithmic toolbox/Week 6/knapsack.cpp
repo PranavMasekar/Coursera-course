@@ -1,25 +1,38 @@
-#include <iostream>
-#include <vector>
+#include<iostream>
+#include<vector>
+#define MW 100000
+#define MN 300
 
-using std::vector;
+typedef long long int Int;
 
-int optimal_weight(int W, const vector<int> &w) {
-  //write your code here
-  int current_weight = 0;
-  for (size_t i = 0; i < w.size(); ++i) {
-    if (current_weight + w[i] <= W) {
-      current_weight += w[i];
-    }
+using namespace std;
+
+Int W,n;
+
+Int dpstate[MN+1][MW+1];
+bool visited[MN+1][MW+1];
+Int weights[MN+1];
+
+Int fill(Int n,Int w) {
+  if(n==0 or w==0) return 0;
+  if(visited[n][w]) return dpstate[n][w];
+  visited[n][w]=true;
+  dpstate[n][w]=fill(n-1,w);
+  Int v=0;
+  if(weights[n-1]<=w) {
+     v=fill(n-1,w-weights[n-1])+weights[n-1];
   }
-  return current_weight;
+  return max(v,dpstate[n][w]);
 }
 
 int main() {
-  int n, W;
-  std::cin >> W >> n;
-  vector<int> w(n);
-  for (int i = 0; i < n; i++) {
-    std::cin >> w[i];
-  }
-  std::cout << optimal_weight(W, w) << '\n';
+    cin>>W>>n;
+    for(Int i=0;i<n;i++)
+       cin>>weights[i];
+    for(Int i=0;i<=n;i++) {
+       for(Int j=0;j<=W;j++) {
+          dpstate[i][j]=fill(i,j);
+       }
+    }
+    cout<<dpstate[n][W]<<endl;
 }
